@@ -1,4 +1,4 @@
-package com.example.rqchallenge.models;
+package com.example.rqchallenge.restapiconnection;
 
 import com.google.gson.annotations.SerializedName;
 

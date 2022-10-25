@@ -12,14 +12,21 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import com.example.rqchallenge.exceptions.ApiException;
 import com.example.rqchallenge.models.Employee;
-import com.example.rqchallenge.models.RestApiBaseResponse;
 import com.example.rqchallenge.utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * The connection layer connects to the 3rd party API requests.
+ * 
+ * @author alexmay
+ *
+ */
+@Component
 public class RestApiConnection {
 
 	static final Logger LOG = LogManager.getLogger(RestApiConnection.class);
@@ -129,10 +136,10 @@ public class RestApiConnection {
 
 			LOG.info("Response: {} : {}", response.uri(), response.body());
 
-			Type listType = new TypeToken<RestApiBaseResponse<CreateEmployeeResonse>>() {
+			Type listType = new TypeToken<RestApiBaseResponse<CreateEmployeeResponse>>() {
 			}.getType();
 
-			RestApiBaseResponse<CreateEmployeeResonse> baseResponse = new Gson().fromJson(response.body(), listType);
+			RestApiBaseResponse<CreateEmployeeResponse> baseResponse = new Gson().fromJson(response.body(), listType);
 
 			Employee employee = baseResponse.getData().mapToRqEmployee();
 

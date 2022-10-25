@@ -12,7 +12,7 @@ import lombok.Data;
  *
  */
 @Data
-public class CreateEmployeeResonse {
+public class CreateEmployeeResponse {
 
 	@SerializedName("id")
 	private String id;
