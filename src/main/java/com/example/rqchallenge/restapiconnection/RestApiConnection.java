@@ -9,6 +9,11 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
+
+import com.example.rqchallenge.exceptions.ApiException;
 import com.example.rqchallenge.models.Employee;
 import com.example.rqchallenge.models.RestApiBaseResponse;
 import com.example.rqchallenge.utils.Utils;
@@ -16,6 +21,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class RestApiConnection {
+
+	static final Logger LOG = LogManager.getLogger(RestApiConnection.class);
 
 	public List<Employee> getEmployees() {
 		try {
@@ -29,7 +36,16 @@ public class RestApiConnection {
 
 			// use the client to send the request
 
+			LOG.info("Request: {}", request);
+
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+			if (response.statusCode() != 200) {
+				LOG.info("Response ERROR: {}", response);
+				throw new ApiException(HttpStatus.valueOf(response.statusCode()), response.body());
+			}
+
+			LOG.info("Response: {}", response.body());
 
 			Type listType = new TypeToken<RestApiBaseResponse<List<Employee>>>() {
 			}.getType();
@@ -61,7 +77,16 @@ public class RestApiConnection {
 
 			// use the client to send the request
 
+			LOG.info("Request: {}", request);
+
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+			if (response.statusCode() != 200) {
+				LOG.info("Response ERROR: {}", response);
+				throw new ApiException(HttpStatus.valueOf(response.statusCode()), response.body());
+			}
+
+			LOG.info("Response: {}", response.body());
 
 			Type listType = new TypeToken<RestApiBaseResponse<Employee>>() {
 			}.getType();
@@ -93,7 +118,16 @@ public class RestApiConnection {
 
 			// use the client to send the request
 
+			LOG.info("Request: {}", request);
+
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+			if (response.statusCode() != 200) {
+				LOG.info("Response ERROR: {}", response);
+				throw new ApiException(HttpStatus.valueOf(response.statusCode()), response.body());
+			}
+
+			LOG.info("Response: {} : {}", response.uri(), response.body());
 
 			Type listType = new TypeToken<RestApiBaseResponse<CreateEmployeeResonse>>() {
 			}.getType();
@@ -124,7 +158,11 @@ public class RestApiConnection {
 
 			// use the client to send the request
 
-			client.send(request, HttpResponse.BodyHandlers.ofString());
+			LOG.info("Request: {}", request);
+
+			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+			LOG.info("Response: {}", response.body());
 
 		} catch (IOException e) {
 			e.printStackTrace();
