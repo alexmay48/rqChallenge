@@ -34,7 +34,6 @@ public class EmployeeController implements IEmployeeController {
 				employeeSearch.add(e);
 			}
 		}
-
 		return new ResponseEntity<List<Employee>>(employeeSearch, HttpStatus.OK);
 	}
 

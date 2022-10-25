@@ -95,12 +95,12 @@ public class RestApiConnection {
 
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-			Type listType = new TypeToken<RestApiBaseResponse<Employee>>() {
+			Type listType = new TypeToken<RestApiBaseResponse<CreateEmployeeResonse>>() {
 			}.getType();
 
-			RestApiBaseResponse<Employee> baseResponse = new Gson().fromJson(response.body(), listType);
+			RestApiBaseResponse<CreateEmployeeResonse> baseResponse = new Gson().fromJson(response.body(), listType);
 
-			Employee employee = baseResponse.getData();
+			Employee employee = baseResponse.getData().mapToRqEmployee();
 
 			return employee;
 		} catch (IOException e) {
