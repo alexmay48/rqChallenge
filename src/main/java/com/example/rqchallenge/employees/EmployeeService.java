@@ -25,28 +25,46 @@ public class EmployeeService {
 	@Autowired
 	private RestApiConnection restApiConnection;
 
+	/**
+	 * 
+	 * @return - All employees
+	 */
 	public List<Employee> getEmployees() {
 		List<Employee> employees = restApiConnection.getEmployees();
 		return employees;
 	}
 
+	/**
+	 * 
+	 * @param searchString - The string to search for in the name of each employee
+	 * @return - all Employees whose name contains the searchString in their name
+	 */
 	public List<Employee> getEmployeeByNameSearch(String searchString) {
 		List<Employee> employees = restApiConnection.getEmployees();
 		List<Employee> employeeSearch = new ArrayList<Employee>();
 
 		for (Employee e : employees) {
-			if (e.getEmplyeeName().contains(searchString)) {
+			if (e.getEmployeeName().contains(searchString)) {
 				employeeSearch.add(e);
 			}
 		}
 		return employeeSearch;
 	}
 
+	/**
+	 * 
+	 * @param id - The id of the employee to find
+	 * @return - Employee with specified id
+	 */
 	public Employee getEmployee(String id) {
 		Employee employee = restApiConnection.getEmployee(id);
 		return employee;
 	}
 
+	/**
+	 * 
+	 * @return - The number of the highest salary
+	 */
 	public Integer getHighestSalaryOfEmployees() {
 		List<Employee> employees = restApiConnection.getEmployees();
 
@@ -59,6 +77,13 @@ public class EmployeeService {
 		return highest;
 	}
 
+	/**
+	 * Searches through all employees to find the top ten earners. Uses a priority
+	 * queue to keep the overall performance of the search as O(N log K), with N
+	 * being all of the employees and K being 10.
+	 * 
+	 * @return - The list of the names of the top 10 earners
+	 */
 	public List<String> getTopTenHighestEarningEmployeeNames() {
 
 		List<Employee> employees = restApiConnection.getEmployees();
@@ -84,16 +109,28 @@ public class EmployeeService {
 		// Now take the employees in the Priority Queue and put their names in list
 		List<String> topTenEarners = new ArrayList<String>();
 		while (!pq.isEmpty()) {
-			topTenEarners.add(pq.poll().getEmplyeeName());
+			topTenEarners.add(pq.poll().getEmployeeName());
 		}
 		return topTenEarners;
 	}
 
+	/**
+	 * Creates an employee in the service
+	 * 
+	 * @param employeeInput - The parameters passed in the URL
+	 * @return - The information of the employee that was created in the service.
+	 */
 	public Employee createEmployee(Map<String, Object> employeeInput) {
 		Employee employee = restApiConnection.createEmployee(employeeInput);
 		return employee;
 	}
 
+	/**
+	 * Deletes an employee in the service.
+	 * 
+	 * @param id - The id of the employee to delete
+	 * @return - The employee info of the employee to remove.
+	 */
 	public Employee deleteEmployeeById(String id) {
 		Employee employee = restApiConnection.getEmployee(id);
 		restApiConnection.deleteEmployee(id);

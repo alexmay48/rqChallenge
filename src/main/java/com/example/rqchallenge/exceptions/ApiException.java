@@ -5,6 +5,13 @@ import org.springframework.http.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * We can throw this exception from the 3rd Party Api to make sure that we can
+ * catch it and pass it along back to the caller to our service.
+ * 
+ * @author alexmay
+ *
+ */
 public class ApiException extends RuntimeException {
 
 	/**

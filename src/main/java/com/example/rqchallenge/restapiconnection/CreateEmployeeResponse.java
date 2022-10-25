@@ -31,7 +31,7 @@ public class CreateEmployeeResponse {
 		employee.setId(id);
 		employee.setEmployeeAge(Integer.parseInt(age));
 		employee.setEmployeeSalary(Integer.parseInt(salary));
-		employee.setEmplyeeName(this.name);
+		employee.setEmployeeName(this.name);
 		employee.setProfileImage("");
 		return employee;
 	}

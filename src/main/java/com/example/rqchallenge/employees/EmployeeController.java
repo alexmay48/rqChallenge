@@ -56,7 +56,7 @@ public class EmployeeController implements IEmployeeController {
 	@Override
 	public ResponseEntity<String> deleteEmployeeById(String id) {
 		Employee employee = employeeService.deleteEmployeeById(id);
-		return new ResponseEntity<String>(employee.getEmplyeeName(), HttpStatus.OK);
+		return new ResponseEntity<String>(employee.getEmployeeName(), HttpStatus.OK);
 	}
 
 }

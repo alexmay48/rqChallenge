@@ -12,7 +12,7 @@ public class Employee {
 
 	@JsonProperty("employee_name")
 	@SerializedName("employee_name")
-	private String emplyeeName;
+	private String employeeName;
 
 	@JsonProperty("employee_salary")
 	@SerializedName("employee_salary")
